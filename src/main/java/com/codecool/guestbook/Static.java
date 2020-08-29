@@ -34,7 +34,7 @@ public class Static implements HttpHandler {
     }
 
     private void send404(HttpExchange httpExchange) throws IOException {
-        String response = "404 (Not Found)\n";
+        String response = "404 - oh well. That sucks\n";
         httpExchange.sendResponseHeaders(404, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.toString().getBytes());

@@ -9,18 +9,19 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GuestBook implements HttpHandler {
 
     private static List<EntryNote> entryNotes;
-    private static int idCount;
 
     public GuestBook() {
         System.out.println("test3");
 
         entryNotes = new ArrayList<>();
-        idCount = 0;
+
     }
 
     @Override
@@ -31,7 +32,21 @@ public class GuestBook implements HttpHandler {
         if (method.equals("POST")) {
             postNote(httpExchange);
         }
+        
+        if (method.equals("GET")) {
+            getNotes(httpExchange);
+            
+        }
         getNotes(httpExchange);
+    }
+
+    private String getTemplate() {
+        final String response;
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/template.twig");
+        JtwigModel model = JtwigModel.newModel();
+        model.with("entryNote", entryNotes);
+        response = template.render(model);
+        return response;
     }
 
 
@@ -54,10 +69,9 @@ public class GuestBook implements HttpHandler {
     private void postNote(HttpExchange httpExchange) throws IOException {
         Map<String, String> inputs = getInputs(httpExchange);
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         String strDate = formatter.format(date);
-        entryNotes.add(new EntryNote(idCount, inputs.get("name"), inputs.get("message"), strDate));
-        idCount++;
+        entryNotes.add(new EntryNote(inputs.get("name"), inputs.get("message"), strDate));
     }
 
     private Map<String, String> getInputs(HttpExchange httpExchange) throws IOException {

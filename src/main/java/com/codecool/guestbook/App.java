@@ -10,7 +10,7 @@ public class App
     {
         // create a server on port 8000
         System.out.println("test1");
-        HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         System.out.println("test2");
 

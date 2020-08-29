@@ -8,32 +8,31 @@
     <title>Guestbook</title>
 </head>
 <body>
-    <div class="container">
         <h1>GuestBook</h1>
 
-        {% for entryNote in entryNotes %}
+        <div id="entryNote">
+            {% for entryNote in entryNotes %}
             <div class="entryNote">
-                <p class="first-entry">{{ entryNote.getMessage() }}</p>
-                <p>Posted by: {{ entryNote.getName() }}</p>
-                <p>Posted on: {{ entryNote.getDate() }}</p>
+                <h4>{{ entryNote.name }}, posted on {{ entryNote.date }}</h4>
+                <p>{{ entryNote.message }}</p>
             </div>
-        {% endfor %}
-
-        <div class="form">
-            <form method="POST">
-                <label for="user-msg">Your message</label>
-                <textarea class="user-msg" name="user-msg" id="user-msg"></textarea>
-
-                <label for="user-name">Your name</label>
-                <input class="user-name" id="user-name" name="user-name" type="text">
-
-                <div id="btn">
-                    <button type="submit">SUBMIT</button>
-                </div>
-            </form>
+            {% endfor %}
         </div>
 
-    </div>
+            <form id="entryNote-form" method="POST">
+                <label for="name">Your name</label>
+                <input  type="text"  name="name" id="name">
+                <br>
+
+                <label for="message">Your message</label>
+                <textarea name="message" id="message"></textarea>
+
+                <button type="submit">Submit</button>
+
+            </form>
+
+
+
 
 </body>
 </html>
