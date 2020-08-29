@@ -26,4 +26,14 @@ public class EntryNote {
         return date;
     }
 
+    @Override
+    public String toString() {
+        return "Entry Note{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", message='" + message + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
 }
