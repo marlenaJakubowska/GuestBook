@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guestbook</title>
+</head>
+<body>
+    <div class="container">
+        <h1>GuestBook</h1>
+
+        {% for entryNote in entryNotes %}
+            <div class="entryNote">
+                <p class="first-entry">{{ entryNote.getMessage() }}</p>
+                <p>Posted by: {{ entryNote.getName() }}</p>
+                <p>Posted on: {{ entryNote.getDate() }}</p>
+            </div>
+        {% endfor %}
+
+        <div class="form">
+            <form method="POST">
+                <label for="user-msg">Your message</label>
+                <textarea class="user-msg" name="user-msg" id="user-msg"></textarea>
+
+                <label for="user-name">Your name</label>
+                <input class="user-name" id="user-name" name="user-name" type="text">
+
+                <div id="btn">
+                    <button type="submit">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>
