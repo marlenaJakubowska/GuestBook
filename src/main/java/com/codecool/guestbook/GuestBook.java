@@ -9,8 +9,6 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GuestBook implements HttpHandler {
@@ -39,16 +37,6 @@ public class GuestBook implements HttpHandler {
         }
         getNotes(httpExchange);
     }
-
-    private String getTemplate() {
-        final String response;
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/template.twig");
-        JtwigModel model = JtwigModel.newModel();
-        model.with("entryNote", entryNotes);
-        response = template.render(model);
-        return response;
-    }
-
 
     private void send200(HttpExchange httpExchange, String response) throws IOException{
         httpExchange.sendResponseHeaders(200, response.length());
