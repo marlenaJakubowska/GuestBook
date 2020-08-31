@@ -31,6 +31,11 @@
       <artifactId>jtwig-core</artifactId>
       <version>5.86.1.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.30</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -78,6 +83,26 @@
       </plugins>
     </pluginManagement>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>com.codecool.guestbook.App</mainClass>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${project.url}</url>
+              <key>value</key>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -85,6 +110,21 @@
           <source>8</source>
           <target>8</target>
         </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

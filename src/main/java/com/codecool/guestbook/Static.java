@@ -12,26 +12,34 @@ import java.net.URI;
 import java.net.URL;
 
 public class Static implements HttpHandler {
+
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        // get file path from url
-        URI uri = httpExchange.getRequestURI();
-        System.out.println("I'm looking for a: " + uri.getPath() + " file.");
-        String path = "." + uri.getPath();
+        try {
 
-        // get file from resources folder, see: https://www.mkyong.com/java/java-read-a-file-from-resources-folder/
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL fileURL = classLoader.getResource(path);
+            // get file path from url
+            URI uri = httpExchange.getRequestURI();
+            System.out.println("I'm looking for a: " + uri.getPath() + " file.");
+            String path = "." + uri.getPath();
 
-        if (fileURL == null) {
-            // Object does not exist or is not a file: reject with 404 error.
-            send404(httpExchange);
-        } else {
-            // Object exists and is a file: accept with response code 200.
-            sendFile(httpExchange, fileURL);
+            // get file from resources folder, see: https://www.mkyong.com/java/java-read-a-file-from-resources-folder/
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL fileURL = classLoader.getResource(path);
+
+            if (fileURL == null) {
+                // Object does not exist or is not a file: reject with 404 error.
+                send404(httpExchange);
+            } else {
+                // Object exists and is a file: accept with response code 200.
+                sendFile(httpExchange, fileURL);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
     private void send404(HttpExchange httpExchange) throws IOException {
         String response = "404 - oh well. That sucks\n";

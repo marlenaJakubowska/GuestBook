@@ -16,10 +16,7 @@ public class GuestBook implements HttpHandler {
     private static List<EntryNote> entryNotes;
 
     public GuestBook() {
-        System.out.println("test3");
-
         entryNotes = new ArrayList<>();
-
     }
 
     @Override
